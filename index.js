@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-const MONGODB_URI = "mongodb://localhost:27017/bot";
+const MONGODB_URI = process.env.MONGODB_URI;
 mongoose
   .connect(MONGODB_URI, {
     useNewUrlParser: true,
@@ -27,5 +27,10 @@ app.get("/", async (req, res) => {
   await User.insertOne({ name: "Prasad" });
   res.send("Server is running, CORS is enabled, and MongoDB is connected!");
 });
+
+app.delete("/", async(req, res)=> {
+  await User.deleteOne({ name: "Prasad" });
+  res.send("Server is running, CORS is enabled, and MongoDB is connected!");
+})
 
 export default app;
